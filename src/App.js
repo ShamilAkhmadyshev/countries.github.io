@@ -16,17 +16,16 @@ const App = () => {
         .get(`https://restcountries.com/v3.1/name/${country}`)
 
         .then(response => {
-          console.log(response)
 
           if (response.data.length > 10) {
             setCountryShow("Too many matches, specify another filter")
-            console.log(countryShow)
+
           }
 
           else if (response.data.length <= 10 && response.data.length > 1) {
             console.log(response.data)
             setCountryShow(response.data.map(countr => <li key={countr.cca3}>{countr.name.common} <button onClick={() => setCountry(countr.name.common)}>Show</button> </li>))
-            console.log(countryShow)
+
           }
 
           else if (response.data.length === 1) {
@@ -35,8 +34,6 @@ const App = () => {
             const countryData = response.data[0];
             setCountryShow(countryData);
 
-            console.log(countryData)
-            console.log(countryData.capitalInfo.latlng)
 
             const elems = Object.entries(response.data[0].languages).map(([key, value]) => (<li key={key}>{value}</li>))
 
@@ -44,28 +41,25 @@ const App = () => {
 
             const curObj = Object.values(response.data[0].currencies)
 
-            console.log(Object.values(response.data[0].currencies))
 
             const cur = curObj[0].name
             const flagObj = Object.values(response.data[0].flags)
-            console.log(flagObj[0])
             setCountryShow(
-              <div>
-                <h2>{response.data[0].name.common}</h2>
-                <div>Capital: {response.data[0].capital}</div>
-                <div>Currency: {cur}</div>
+              <div className='country'>
+                <h2 className='name'>{response.data[0].name.common}</h2>
+                <div className='capital'>Capital: {response.data[0].capital}</div>
+                <div className='currency'>Currency: {cur}</div>
                 <br></br>
-                <div>Languages:
-                  <ul>{elems}</ul>
+                <div className='languages'>Languages:
+                  <ul className='language'>{elems}</ul>
                 </div>
-                <br></br>
-                <div>Flag:
+                <div className='flag'>Flag:
                   <br></br>
-                  <img src={flagObj[0]} alt={`Flag of ${response.data[0].name.common}`} />
+                  <img className='flag-img' src={flagObj[0]} alt={`Flag of ${response.data[0].name.common}`} />
                 </div>
                 <div style={{ display: "none" }}>{latlng}</div>
                 <div>
-                  <h2>Weather in {response.data[0].capital}</h2>
+                  <h2 className='weather'>Weather in {response.data[0].capital}</h2>
                 </div>
               </div>
             )
@@ -80,38 +74,38 @@ const App = () => {
   )
 
 
-
+  console.log(countryShow)
   useEffect(() => {
     if (countryShow.length >= 0) {
       setForecast(<></>)
     } else if (countryShow.length === undefined) {
-      const latlng = countryShow.props.children[7].props.children
+      const latlng = countryShow.props.children[6].props.children
+      console.log(latlng)
       console.log(countryShow)
       axios
         .get(`https://api.openweathermap.org/data/2.5/forecast?lat=${latlng[0]}&lon=${latlng[1]}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
         .then(response => {
           const weather = response.data.list[0].main.temp;
-          console.log(weather)
-          setForecast(<div>
-            <div>Temperature: {weather} Celcius</div>
-            <div><img src={`https://openweathermap.org/img/wn/${response.data.list[0].weather[0].icon}@2x.png`} alt='weather icon' /></div>
+          setForecast(<div className='forecast'>
+            <div className='tempearture'>Temperature: {weather} Celcius</div>
+            <div className='forecast-img'><img src={`https://openweathermap.org/img/wn/${response.data.list[0].weather[0].icon}@2x.png`} alt='weather icon' /></div>
           </div>);
-          console.log(forecast)
         });
 
     }
   }, [countryShow]);
 
 
-  console.log(forecast)
 
   return (
-    <div>
-      <h1>Find countries</h1>
-      <div>Country name: <input onChange={handleSetCountry}></input> </div>
-      <ul>{countryShow}</ul>
+    <main>
+      <h1 className='title'>Find countries &#127757;</h1>
+      <div className='wrapper'>
+        <div className='searchtitle'>Country name: <input autoFocus className='search' onChange={handleSetCountry}></input> </div>
+        <ul className='list'>{countryShow}</ul>
+      </div>
       <div>{forecast}</div>
-    </div>
+    </main>
   )
 }
 
