@@ -166,12 +166,20 @@ h6 {
   font-size: 30px;
   display: flex;
   flex-direction: column;
-  align-self: center;
   @media (max-width: 450px) {
     font-size: 25px;
   }
 }
 
+.li {
+  margin-left: 120px;
+  margin-bottom: 10px;
+}
+
+.showbutton {
+  font-size: 25px;
+  padding: 7px 15px;
+}
 .forecast {
   display: flex;
   align-items: center;
@@ -234,6 +242,6 @@ footer {
 }
 .search {
   border: 1px solid black;
-
+  border-radius: 5px;
   font-size: 20px;
 }

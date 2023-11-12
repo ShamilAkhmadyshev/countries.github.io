@@ -70,7 +70,7 @@ const App = () => {
 
           else if (response.data.length <= 10 && response.data.length > 1) {
             console.log(response.data)
-            setCountryShow(response.data.map(countr => <li key={countr.cca3}>{countr.name.common} <button onClick={() => setCountry(countr.name.common)}>Show</button> </li>))
+            setCountryShow(response.data.map(countr => <li className='li' key={countr.cca3}>{countr.name.common} <button className='showbutton' onClick={() => setCountry(countr.name.common)}>Show</button> </li>))
 
           }
 
