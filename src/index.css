@@ -163,6 +163,7 @@ h6 {
 }
 
 .list {
+  margin-left: 22px;
   font-size: 30px;
   display: flex;
   flex-direction: column;
@@ -172,8 +173,8 @@ h6 {
 }
 
 .li {
-  margin-left: 120px;
   margin-bottom: 10px;
+  align-self: center;
 }
 
 .showbutton {
@@ -226,6 +227,12 @@ footer {
   background-color: rgb(107, 123, 242);
   border-radius: 7px;
   margin-bottom: 25px;
+  &:hover {
+    background-color: rgb(77, 88, 170);
+  }
+  &:active {
+    background-color: rgb(34, 34, 34);
+  }
 }
 
 .searchtitle {
